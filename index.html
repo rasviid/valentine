@@ -88,10 +88,14 @@ button {
 
 <body>
 
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+  <source src="lagu.mp3" type="audio/mp3">
+</audio>
+
 <div class="container">
   <h1>Hari Valentine nih, kamu mau Valentine-an sama aku? 💖</h1>
 
-  <!-- GIF YANG BERUBAH -->
   <img id="gifImage"
   src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YTg5bzM0cDhlem9maTh1aDljcmhoYnV1eDFlcHZscjFnZjdsb3k3byZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3IkH0Ch704BoApSn9r/giphy.gif">
 
@@ -106,6 +110,7 @@ button {
 <script>
 let step = 0;
 let size = 20;
+let musicStarted = false;
 
 const gifs = [
   "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZnptMGFrMzZ5bW1lMTJkbHM4c3JhMnhyMXBibXBtdzUwbnF0MGN1cSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/osLWTRRtDXe29iYmcL/giphy.gif",
@@ -114,6 +119,13 @@ const gifs = [
 ];
 
 function klikMau() {
+
+  if (!musicStarted) {
+    const music = document.getElementById("bgMusic");
+    music.currentTime = 9; // mulai dari detik 9
+    music.play();
+    musicStarted = true;
+  }
 
   const response = document.getElementById("response");
   const mauBtn = document.getElementById("mau");
@@ -124,7 +136,7 @@ function klikMau() {
   mauBtn.style.fontSize = size + "px";
 
   if (step <= 3) {
-    gif.src = gifs[step - 1]; // ganti gif
+    gif.src = gifs[step - 1];
   }
 
   if (step === 1) {
