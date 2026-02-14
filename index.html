@@ -106,7 +106,6 @@ button {
 
 <body>
 
-<!-- AUDIO -->
 <audio id="bgMusic" loop>
   <source src="lagu.mp3" type="audio/mp3">
 </audio>
@@ -118,7 +117,7 @@ button {
 
   <div>
     <button id="mau" onclick="klikMau()">Mau 💕</button>
-    <button id="gak" onmouseover="moveGak()">Gak Mau 😝</button>
+    <button id="gak">Gak Mau 😝</button>
   </div>
 
   <div id="response"></div>
@@ -132,7 +131,9 @@ let musicStarted = false;
 function klikMau() {
 
   if (!musicStarted) {
-    document.getElementById("bgMusic").play();
+    const music = document.getElementById("bgMusic");
+    music.currentTime = 3; // mulai dari detik ke-3
+    music.play();
     musicStarted = true;
   }
 
@@ -168,15 +169,28 @@ function moveGak() {
   button.style.top = y + "px";
 }
 
+// Desktop hover
+document.getElementById("gak").addEventListener("mouseover", moveGak);
+
+// HP touch
+document.getElementById("gak").addEventListener("touchstart", function(e) {
+  e.preventDefault();
+  moveGak();
+});
+
 function showEnding() {
-  document.body.innerHTML = `
-    <div style="text-align:center;margin-top:80px">
-      <h1 style="color:#c2185b">Aku tau kamu bakalan jawab mau sih 😆💘</h1>
-      <img src="https://media.giphy.com/media/45Ai0qy9zXCKR5MEYP/giphy.gif" width="250">
-      <p style="font-size:20px;color:#ad1457;margin-top:20px;">
+  const container = document.querySelector(".container");
+
+  container.innerHTML = `
+    <h1 style="color:#c2185b">
+      Aku tau kamu bakalan jawab mau sih 😆💘
+    </h1>
+
+    <img src="https://media.giphy.com/media/45Ai0qy9zXCKR5MEYP/giphy.gif" width="250">
+
+    <p style="font-size:20px;color:#ad1457;margin-top:20px;">
       Makasih kamu dan buat aku jadi orang paling bahagia! 💕
-      </p>
-    </div>
+    </p>
   `;
 }
 
