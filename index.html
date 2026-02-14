@@ -71,6 +71,26 @@ button {
   min-height: 40px;
 }
 
+/* Speaker Button */
+#musicToggle {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #c2185b;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
 /* LOVE TERBANG */
 .heart {
   position: absolute;
@@ -102,15 +122,19 @@ button {
 
 <body>
 
+<!-- AUDIO -->
 <audio id="bgMusic" loop>
   <source src="lagu.mp3" type="audio/mp3">
 </audio>
+
+<!-- Speaker Icon -->
+<button id="musicToggle" onclick="toggleMusic()">🔇</button>
 
 <div class="container">
   <h1>Hari Valentine nih, kamu mau Valentine-an sama aku? 💖</h1>
 
   <img id="gifImage"
-  src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YTg5bzM0cDhlem9maTh1aDljcmhoYnV1eDFlcHZscjFnZjdsb3k3byZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3IkH0Ch704BoApSn9r/giphy.gif">
+  src="https://media.giphy.com/media/3IkH0Ch704BoApSn9r/giphy.gif">
 
   <div>
     <button id="mau" onclick="klikMau()">Mau 💕</button>
@@ -126,9 +150,9 @@ let size = 20;
 let musicStarted = false;
 
 const gifs = [
-  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZnptMGFrMzZ5bW1lMTJkbHM4c3JhMnhyMXBibXBtdzUwbnF0MGN1cSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/osLWTRRtDXe29iYmcL/giphy.gif",
-  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MmducnRpZXV0eWl6OXR4OTN0eDAzZGd2bHR6c3N3dWJmNWpyNXVuNSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/a0PvcuAurRncgDKwqX/giphy.gif",
-  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2tiZmYyamI0eWxuemhsOWQ3M3kzbGF0ODcxMDVqZTdwdW12d3Z1NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/FDbIUZLwbCUS4786z3/giphy.gif"
+  "https://media.giphy.com/media/osLWTRRtDXe29iYmcL/giphy.gif",
+  "https://media.giphy.com/media/a0PvcuAurRncgDKwqX/giphy.gif",
+  "https://media.giphy.com/media/FDbIUZLwbCUS4786z3/giphy.gif"
 ];
 
 function klikMau() {
@@ -138,6 +162,7 @@ function klikMau() {
     music.currentTime = 9;
     music.play();
     musicStarted = true;
+    document.getElementById("musicToggle").innerText = "🔊";
   }
 
   const response = document.getElementById("response");
@@ -161,6 +186,19 @@ function klikMau() {
   } else if (step === 4) {
     showEnding();
     launchFlowers();
+  }
+}
+
+function toggleMusic() {
+  const music = document.getElementById("bgMusic");
+  const btn = document.getElementById("musicToggle");
+
+  if (music.paused) {
+    music.play();
+    btn.innerText = "🔊";
+  } else {
+    music.pause();
+    btn.innerText = "🔇";
   }
 }
 
@@ -188,7 +226,7 @@ function showEnding() {
     </h1>
     <img src="https://media.giphy.com/media/J7hCpsLBNvRChMfBDL/giphy.gif" width="250">
     <p style="font-size:20px;color:#ad1457;margin-top:20px;">
-      aku ngerasa jadi orang paling bahagia! 💕
+      Makasih kamu dan buat aku jadi orang paling bahagia! 💕
     </p>
   `;
 }
@@ -218,4 +256,3 @@ setInterval(() => {
 
 </body>
 </html>
-
