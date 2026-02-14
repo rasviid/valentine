@@ -41,7 +41,7 @@ img {
 button {
   border: none;
   padding: 15px 35px;
-  font-size: 20px;
+  font-size: 26px;
   border-radius: 15px;
   cursor: pointer;
   margin: 10px;
@@ -51,7 +51,6 @@ button {
 #mau {
   background-color: #4CAF50;
   color: white;
-  font-size: 24px;
 }
 
 #gak {
@@ -77,21 +76,25 @@ button {
 }
 
 @keyframes floatUp {
-  0% {
-    transform: translateY(0);
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-100vh);
-    opacity: 0;
-  }
+  0% { transform: translateY(0); opacity: 0.8; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* BUNGA NYEMBUR */
+.flower {
+  position: absolute;
+  bottom: -30px;
+  font-size: 30px;
+  animation: shootUp 1.2s ease-out forwards;
+}
+
+@keyframes shootUp {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-80vh) scale(1.5); opacity: 0; }
 }
 </style>
 </head>
 <body>
-
-<!-- YOUTUBE MUSIC (HIDDEN) -->
-<div id="ytPlayer" style="display:none;"></div>
 
 <div class="container">
   <h1>Hari Valentine nih, kamu mau Valentine-an sama aku? 💖</h1>
@@ -108,45 +111,25 @@ button {
 
 <script>
 let step = 0;
-let size = 24;
-let musicStarted = false;
-
-function startMusic() {
-  document.getElementById("ytPlayer").innerHTML = `
-    <iframe width="0" height="0"
-    src="https://www.youtube.com/embed/uaNrFn17YtI?autoplay=1&loop=1&playlist=uaNrFn17YtI"
-    frameborder="0"
-    allow="autoplay"></iframe>
-  `;
-}
+let size = 26;
 
 function klikMau() {
   const response = document.getElementById("response");
   const mauBtn = document.getElementById("mau");
 
-  if (!musicStarted) {
-    startMusic();
-    musicStarted = true;
-  }
-
   step++;
-  size += 6;
+  size += 12;
   mauBtn.style.fontSize = size + "px";
 
   if (step === 1) {
-    response.innerHTML = "Beneran kamu mau? 😳";
+    response.innerHTML = "Yakin nih? 😳";
   } else if (step === 2) {
-    response.innerHTML = "Kamu yakin? 🥺";
-  } else {
-    document.body.innerHTML = `
-      <div style="text-align:center;margin-top:80px">
-        <h1 style="color:#c2185b">Aku tau kamu bakalan jawab mau sih 😆💘</h1>
-        <img src="https://media.giphy.com/media/45Ai0qy9zXCKR5MEYP/giphy.gif" width="250">
-        <p style="font-size:22px;color:#ad1457;margin-top:20px;">
-        Makasih kamu dan buat aku jadi orang paling bahagia! 💕
-        </p>
-      </div>
-    `;
+    response.innerHTML = "Beneran yakin? 🥺";
+  } else if (step === 3) {
+    response.innerHTML = "Klik sekali lagi kalau serius 😏";
+  } else if (step === 4) {
+    showEnding();
+    launchFlowers();
   }
 }
 
@@ -156,6 +139,32 @@ function moveGak() {
   const y = Math.random() * (window.innerHeight - 60);
   button.style.left = x + "px";
   button.style.top = y + "px";
+}
+
+function showEnding() {
+  document.body.innerHTML = `
+    <div style="text-align:center;margin-top:80px">
+      <h1 style="color:#c2185b">Aku tau kamu bakalan jawab mau sih 😆💘</h1>
+      <img src="https://media.giphy.com/media/45Ai0qy9zXCKR5MEYP/giphy.gif" width="250">
+      <p style="font-size:22px;color:#ad1457;margin-top:20px;">
+      Makasih kamu dan buat aku jadi orang paling bahagia! 💕
+      </p>
+    </div>
+  `;
+}
+
+function launchFlowers() {
+  for (let i = 0; i < 30; i++) {
+    const flower = document.createElement("div");
+    flower.classList.add("flower");
+    flower.innerHTML = "🌸";
+    flower.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(flower);
+
+    setTimeout(() => {
+      flower.remove();
+    }, 1200);
+  }
 }
 
 /* LOVE TERBANG */
