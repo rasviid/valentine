@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💕</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ffe5ec, #ffd6e8, #fff0f5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.container {
+  text-align: center;
+  z-index: 2;
+}
+
+h1 {
+  color: #c2185b;
+  font-size: 36px;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+img {
+  width: 220px;
+  margin: 20px 0;
+}
+
+button {
+  border: none;
+  padding: 15px 35px;
+  font-size: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 10px;
+  transition: 0.3s;
+}
+
+#mau {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 24px;
+}
+
+#gak {
+  background-color: #e53935;
+  color: white;
+  position: absolute;
+}
+
+#response {
+  margin-top: 20px;
+  font-size: 22px;
+  color: #ad1457;
+  min-height: 40px;
+}
+
+/* LOVE TERBANG */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 24px;
+  animation: floatUp 5s linear forwards;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- MUSIC (GANTI FILE NYA JADI LAGU KAMU SENDIRI) -->
+<audio id="bgMusic" loop>
+  <source src="romantic.mp3" type="audio/mp3">
+</audio>
+
+<div class="container">
+  <h1>Hari Valentine nih, kamu mau Valentine-an sama aku? 💖</h1>
+
+  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdng4YWVreWwzcHI0dmlubDYyNjRudGlyYmJ4dHk4aGtsaDNvNmx0dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif">
+
+  <div>
+    <button id="mau" onclick="klikMau()">Mau 💕</button>
+    <button id="gak" onmouseover="moveGak()">Gak Mau 😝</button>
+  </div>
+
+  <div id="response"></div>
+</div>
+
+<script>
+let step = 0;
+let size = 24;
+let musicStarted = false;
+
+function klikMau() {
+  const response = document.getElementById("response");
+  const mauBtn = document.getElementById("mau");
+  const music = document.getElementById("bgMusic");
+
+  if (!musicStarted) {
+    music.play();
+    musicStarted = true;
+  }
+
+  step++;
+  size += 6;
+  mauBtn.style.fontSize = size + "px";
+
+  if (step === 1) {
+    response.innerHTML = "Beneran kamu mau? 😳";
+  } else if (step === 2) {
+    response.innerHTML = "Kamu yakin? 🥺";
+  } else {
+    document.body.innerHTML = `
+      <div style="text-align:center;margin-top:80px">
+        <h1 style="color:#c2185b">Aku tau kamu bakalan jawab mau sih 😆💘</h1>
+        <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MDVwc3RiNXd3bXk0ZHcxb3o3N3hzNnRyczhzbHd3czl4d3UzeDQzNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/45Ai0qy9zXCKR5MEYP/giphy.gif" width="250">
+        <p style="font-size:22px;color:#ad1457;margin-top:20px;">
+        Makasih kamu dan buat aku jadi orang paling bahagia! 💕
+        </p>
+      </div>
+    `;
+  }
+}
+
+function moveGak() {
+  const button = document.getElementById("gak");
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 60);
+  button.style.left = x + "px";
+  button.style.top = y + "px";
+}
+
+/* generate love terus menerus */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (20 + Math.random() * 20) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}, 500);
+</script>
+
+</body>
+</html>
