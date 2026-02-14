@@ -30,10 +30,6 @@ h1 {
   animation: float 2s ease-in-out infinite;
 }
 
-@media (min-width: 600px) {
-  h1 { font-size: 36px; }
-}
-
 @keyframes float {
   0% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
@@ -44,6 +40,7 @@ img {
   width: 200px;
   max-width: 80%;
   margin: 20px 0;
+  transition: 0.3s ease;
 }
 
 button {
@@ -59,7 +56,6 @@ button {
 #mau {
   background-color: #4CAF50;
   color: white;
-  font-size: 22px;
 }
 
 #gak {
@@ -73,20 +69,6 @@ button {
   font-size: 18px;
   color: #ad1457;
   min-height: 40px;
-}
-
-/* LOVE TERBANG */
-.heart {
-  position: absolute;
-  bottom: -20px;
-  font-size: 24px;
-  animation: floatUp 5s linear forwards;
-  opacity: 0.8;
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 0.8; }
-  100% { transform: translateY(-100vh); opacity: 0; }
 }
 
 /* BUNGA NYEMBUR */
@@ -106,14 +88,12 @@ button {
 
 <body>
 
-<audio id="bgMusic" loop>
-  <source src="lagu.mp3" type="audio/mp3">
-</audio>
-
 <div class="container">
   <h1>Hari Valentine nih, kamu mau Valentine-an sama aku? 💖</h1>
 
-  <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdng4YWVreWwzcHI0dmlubDYyNjRudGlyYmJ4dHk4aGtsaDNvNmx0dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KztT2c4u8mYYUiMKdJ/giphy.gif">
+  <!-- GIF YANG BERUBAH -->
+  <img id="gifImage"
+  src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3YTg5bzM0cDhlem9maTh1aDljcmhoYnV1eDFlcHZscjFnZjdsb3k3byZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3IkH0Ch704BoApSn9r/giphy.gif">
 
   <div>
     <button id="mau" onclick="klikMau()">Mau 💕</button>
@@ -125,31 +105,34 @@ button {
 
 <script>
 let step = 0;
-let size = 22;
-let musicStarted = false;
+let size = 20;
+
+const gifs = [
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZnptMGFrMzZ5bW1lMTJkbHM4c3JhMnhyMXBibXBtdzUwbnF0MGN1cSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/osLWTRRtDXe29iYmcL/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MmducnRpZXV0eWl6OXR4OTN0eDAzZGd2bHR6c3N3dWJmNWpyNXVuNSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/a0PvcuAurRncgDKwqX/giphy.gif",
+  "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2tiZmYyamI0eWxuemhsOWQ3M3kzbGF0ODcxMDVqZTdwdW12d3Z1NSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/FDbIUZLwbCUS4786z3/giphy.gif"
+];
 
 function klikMau() {
 
-  if (!musicStarted) {
-    const music = document.getElementById("bgMusic");
-    music.currentTime = 9; // mulai dari detik ke-3
-    music.play();
-    musicStarted = true;
-  }
-
   const response = document.getElementById("response");
   const mauBtn = document.getElementById("mau");
+  const gif = document.getElementById("gifImage");
 
   step++;
   size += 10;
   mauBtn.style.fontSize = size + "px";
 
+  if (step <= 3) {
+    gif.src = gifs[step - 1]; // ganti gif
+  }
+
   if (step === 1) {
     response.innerHTML = "Yakin nih? 😳";
   } else if (step === 2) {
-    response.innerHTML = "Beneran Mau nih? 🥺";
+    response.innerHTML = "Beneran Mau? 🥺";
   } else if (step === 3) {
-    response.innerHTML = "Iyadeh Iyadeh 😏";
+    response.innerHTML = "Iyadeh Iya 😏";
   } else if (step === 4) {
     showEnding();
     launchFlowers();
@@ -158,36 +141,27 @@ function klikMau() {
 
 function moveGak() {
   const button = document.getElementById("gak");
-
   const maxX = window.innerWidth - button.offsetWidth;
   const maxY = window.innerHeight - button.offsetHeight;
-
   const x = Math.random() * maxX;
   const y = Math.random() * maxY;
-
   button.style.left = x + "px";
   button.style.top = y + "px";
 }
 
-// Desktop hover
 document.getElementById("gak").addEventListener("mouseover", moveGak);
-
-// HP touch
-document.getElementById("gak").addEventListener("touchstart", function(e) {
+document.getElementById("gak").addEventListener("touchstart", function(e){
   e.preventDefault();
   moveGak();
 });
 
 function showEnding() {
   const container = document.querySelector(".container");
-
   container.innerHTML = `
     <h1 style="color:#c2185b">
       Aku tau kamu bakalan jawab mau sih 😆💘
     </h1>
-
-    <img src="https://media.giphy.com/media/45Ai0qy9zXCKR5MEYP/giphy.gif" width="250">
-
+    <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3MmducnRpZXV0eWl6OXR4OTN0eDAzZGd2bHR6c3N3dWJmNWpyNXVuNSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/J7hCpsLBNvRChMfBDL/giphy.gif" width="250">
     <p style="font-size:20px;color:#ad1457;margin-top:20px;">
       Makasih kamu dan buat aku jadi orang paling bahagia! 💕
     </p>
@@ -201,28 +175,10 @@ function launchFlowers() {
     flower.innerHTML = "🌸";
     flower.style.left = Math.random() * 100 + "vw";
     document.body.appendChild(flower);
-
-    setTimeout(() => {
-      flower.remove();
-    }, 1200);
+    setTimeout(() => flower.remove(), 1200);
   }
 }
-
-/* LOVE TERBANG */
-setInterval(() => {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "💗";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = (18 + Math.random() * 18) + "px";
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
-}, 600);
 </script>
 
 </body>
 </html>
-
