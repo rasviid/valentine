@@ -132,7 +132,7 @@ function klikMau() {
 
   if (!musicStarted) {
     const music = document.getElementById("bgMusic");
-    music.currentTime = 3; // mulai dari detik ke-3
+    music.currentTime = 9; // mulai dari detik ke-3
     music.play();
     musicStarted = true;
   }
@@ -147,9 +147,9 @@ function klikMau() {
   if (step === 1) {
     response.innerHTML = "Yakin nih? 😳";
   } else if (step === 2) {
-    response.innerHTML = "Beneran yakin? 🥺";
+    response.innerHTML = "Beneran Mau nih? 🥺";
   } else if (step === 3) {
-    response.innerHTML = "Klik sekali lagi kalau serius 😏";
+    response.innerHTML = "Iyadeh Iyadeh 😏";
   } else if (step === 4) {
     showEnding();
     launchFlowers();
@@ -225,3 +225,4 @@ setInterval(() => {
 
 </body>
 </html>
+
