@@ -96,6 +96,11 @@ button {
 </head>
 <body>
 
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+  <source src="lagu.mp3" type="audio/mp3">
+</audio>
+
 <div class="container">
   <h1>Hari Valentine nih, kamu mau Valentine-an sama aku? 💖</h1>
 
@@ -112,8 +117,15 @@ button {
 <script>
 let step = 0;
 let size = 26;
+let musicStarted = false;
 
 function klikMau() {
+
+  if (!musicStarted) {
+    document.getElementById("bgMusic").play();
+    musicStarted = true;
+  }
+
   const response = document.getElementById("response");
   const mauBtn = document.getElementById("mau");
 
